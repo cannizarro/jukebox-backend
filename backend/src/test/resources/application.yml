@@ -1,0 +1,50 @@
+info:
+  component: backend service for jukebox app
+
+spring:
+  application:
+    name: jukebox-backend
+  webflux:
+    base-path: /jukebox
+
+server:
+  port: 8080
+  shutdown: graceful
+  domain: localhost
+
+spotify:
+  auth:
+    uri: https://accounts.spotify.com/authorize?response_type=code&scope=user-modify-playback-state user-read-private user-read-playback-state user-read-recently-played
+    client:
+      name: spotify-auth-client
+      uri: https://accounts.spotify.com/api/token
+  client_id: id
+  client_secret: secret
+  client:
+    name: spotify-client
+    uri: https://api.spotify.com/v1
+  recently-played:
+    limit: 30
+  open-url: https://open.spotify.com/track/
+
+restaurant:
+  origin: http://localhost:5173
+  redirect: http://localhost:5173/login
+
+scan-interval-minutes: 15
+
+jwt:
+  key: 00ea00e02e1ef1a0b4a06abca06143937df2a3feccb1012a6429527a47d2ec9a
+  max_age_days: 20
+
+dynamoDb:
+  url: http://localhost:8000
+  key: uxq70f
+  secret: uxq70l
+  transaction-page-size: 20
+
+logging:
+  level:
+    com:
+      cannizarro:
+        jukebox: DEBUG
