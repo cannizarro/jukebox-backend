@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.cannizarro</groupId>
 		<artifactId>jukebox-parent-pom</artifactId>
-		<version>0.0.2-SNAPSHOT</version>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>jukebox-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -26,7 +26,7 @@
 		<dependency>
 			<groupId>com.cannizarro</groupId>
 			<artifactId>jukebox-config</artifactId>
-			<version>0.0.2-SNAPSHOT</version>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>io.netty</groupId>

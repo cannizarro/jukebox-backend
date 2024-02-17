@@ -1,0 +1,1 @@
+docker run --env-file ./dev.txt -p 8080:8080  jukebox:1.0.0

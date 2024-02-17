@@ -50,6 +50,7 @@ public class SecurityConfig {
     public SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http) {
         http.authorizeExchange(exchange ->
                 exchange
+                    .pathMatchers("/actuator/**").permitAll()
                     .pathMatchers("/public/**").permitAll()
                     .pathMatchers("/customer/**").permitAll()
                     .pathMatchers( "/admin/**").hasAuthority("ROLE_ADMIN")

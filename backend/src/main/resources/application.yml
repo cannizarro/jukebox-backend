@@ -44,7 +44,12 @@ dynamoDb:
 
 scan-interval-minutes: 15
 
-
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: health
 
 ---
 
