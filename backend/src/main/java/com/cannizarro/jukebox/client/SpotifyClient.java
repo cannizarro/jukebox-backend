@@ -11,8 +11,6 @@ import com.cannizarro.jukebox.constants.JukeboxConstants;
 import com.cannizarro.jukebox.dto.QueueDTO;
 import com.cannizarro.jukebox.dto.RecentlyPlayedDTO;
 import com.cannizarro.jukebox.dto.StateDTO;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -63,7 +61,7 @@ public class SpotifyClient extends SpotifyClientConfig {
                 .bodyToMono(QueueDTO.class);
     }
 
-    public Mono<String> getStateString(){
+    public Mono<StateDTO> getStateDTO(){
         return Mono.zip(getState(), getQueue(),
                 (state, queue) -> {
                     state.setQueue(queue.getQueue());
@@ -77,13 +75,6 @@ public class SpotifyClient extends SpotifyClientConfig {
                                     new StateDTO(throwable.getCause().getMessage()) :
                                     new StateDTO(throwable.getMessage())
                     );
-                })
-                .map(state -> {
-                    try {
-                        return new ObjectMapper().writeValueAsString(state);
-                    } catch (JsonProcessingException e) {
-                        throw new JukeboxException(String.format("Error occurred while serializing: %s", e.getMessage()), e);
-                    }
                 });
     }
 

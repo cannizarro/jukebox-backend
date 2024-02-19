@@ -1,5 +1,6 @@
 package com.cannizarro.jukebox.controller;
 
+import com.cannizarro.jukebox.dto.StateDTO;
 import com.cannizarro.jukebox.dto.TransactionPageDTO;
 import com.cannizarro.jukebox.dto.UserDTO;
 import org.springframework.http.MediaType;
@@ -36,4 +37,7 @@ public interface RestaurantAPI {
 
     @GetMapping(path = "/transactions")
     Mono<TransactionPageDTO> getTransactions(String startKey, Boolean fulfilled, Boolean ascending);
+
+    @GetMapping(path = "/state")
+    Mono<StateDTO> getState();
 }

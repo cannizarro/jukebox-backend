@@ -23,7 +23,7 @@ public class CookieBuilder {
                 .secure(true)
                 .path("/jukebox/")
                 .domain(domain)
-                .sameSite(Cookie.SameSite.LAX.attributeValue())
+                .sameSite(Cookie.SameSite.NONE.attributeValue())
                 .build();
     }
 }
