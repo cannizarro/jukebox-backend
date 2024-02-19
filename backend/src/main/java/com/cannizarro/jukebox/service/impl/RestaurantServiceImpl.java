@@ -7,6 +7,7 @@ import com.cannizarro.jukebox.constants.ErrorMessages;
 import com.cannizarro.jukebox.constants.JukeboxConstants;
 import com.cannizarro.jukebox.dao.TransactionDAO;
 import com.cannizarro.jukebox.dao.UserDAO;
+import com.cannizarro.jukebox.dto.StateDTO;
 import com.cannizarro.jukebox.dto.TransactionDTO;
 import com.cannizarro.jukebox.dto.TransactionPageDTO;
 import com.cannizarro.jukebox.dto.TransactionPageRequestDTO;
@@ -110,5 +111,10 @@ public class RestaurantServiceImpl implements RestaurantService {
                                             transactions.lastEvaluatedKey().get("transactionId").s())
                                 .build()
                 );
+    }
+
+    @Override
+    public Mono<StateDTO> getState() {
+        return spotifyClient.getStateDTO();
     }
 }

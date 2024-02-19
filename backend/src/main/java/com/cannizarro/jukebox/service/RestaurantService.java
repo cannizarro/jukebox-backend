@@ -1,5 +1,6 @@
 package com.cannizarro.jukebox.service;
 
+import com.cannizarro.jukebox.dto.StateDTO;
 import com.cannizarro.jukebox.dto.TransactionPageDTO;
 import com.cannizarro.jukebox.dto.TransactionPageRequestDTO;
 import com.cannizarro.jukebox.dto.UserDTO;
@@ -19,4 +20,6 @@ public interface RestaurantService {
     Mono<UserDTO> updateUser(UserDTO user);
 
     Mono<TransactionPageDTO> getTransactions(TransactionPageRequestDTO requestDTO);
+
+    Mono<StateDTO> getState();
 }

@@ -3,6 +3,7 @@ package com.cannizarro.jukebox.controller.impl;
 import com.cannizarro.jukebox.config.constants.Constants;
 import com.cannizarro.jukebox.config.security.jwt.cookie.CookieBuilder;
 import com.cannizarro.jukebox.controller.RestaurantAPI;
+import com.cannizarro.jukebox.dto.StateDTO;
 import com.cannizarro.jukebox.dto.TransactionPageDTO;
 import com.cannizarro.jukebox.dto.TransactionPageRequestDTO;
 import com.cannizarro.jukebox.dto.UserDTO;
@@ -65,5 +66,10 @@ public class RestaurantAPIImpl implements RestaurantAPI {
     @Override
     public Mono<TransactionPageDTO> getTransactions(@RequestParam String startKey, @RequestParam(required = false) Boolean fulfilled, @RequestParam Boolean ascending) {
         return restaurantService.getTransactions(new TransactionPageRequestDTO(startKey, fulfilled, ascending));
+    }
+
+    @Override
+    public Mono<StateDTO> getState() {
+        return restaurantService.getState();
     }
 }
