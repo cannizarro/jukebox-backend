@@ -40,9 +40,9 @@ dynamoDb:
   url: ${DYNAMODB_URL}
   key: ${DYNAMO_DB_KEY}
   secret: ${DYNAMO_DB_SECRET}
-  transaction-page-size: 2
+  transaction-page-size: 5
 
-scan-interval-minutes: 10
+scan-interval-minutes: 15
 
 management:
   endpoints:
