@@ -9,37 +9,47 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.reactive.ClientHttpConnector;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.function.client.ClientRequest;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import reactor.netty.http.client.HttpClient;
+import reactor.netty.resources.ConnectionProvider;
 
+import java.time.Duration;
 import java.time.Instant;
 
 
 public abstract class SpotifyClientConfig{
     public final UserRepository userRepository;
     private final SpotifyOAuthClient spotifyOAuthClient;
+    private final ReactorClientHttpConnector clientHttpConnector;
     public WebClient webClient;
     @Value("${spotify.client_id}")
     private String spotifyClientId;
     @Value("${spotify.client.uri}")
     private String baseUri;
 
-    public SpotifyClientConfig(UserRepository userRepository, SpotifyOAuthClient spotifyOAuthClient) {
+    public SpotifyClientConfig(UserRepository userRepository, SpotifyOAuthClient spotifyOAuthClient, ReactorClientHttpConnector clientHttpConnector) {
         this.userRepository = userRepository;
         this.spotifyOAuthClient = spotifyOAuthClient;
+        this.clientHttpConnector = clientHttpConnector;
     }
 
     @PostConstruct
     public void init(){
+
+
         webClient = WebClient.builder()
+                .clientConnector(clientHttpConnector)
                 .baseUrl(baseUri)
                 .filters(exchangeFilterFunctions -> {
                     exchangeFilterFunctions.add(getAuthFilter());
-                    exchangeFilterFunctions.add(WebClientCommonConfig.processRequest());
-                    exchangeFilterFunctions.add(WebClientCommonConfig.processResponse());
+                    exchangeFilterFunctions.add(WebClientUtils.processRequest());
+                    exchangeFilterFunctions.add(WebClientUtils.processResponse());
                 })
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .defaultHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)

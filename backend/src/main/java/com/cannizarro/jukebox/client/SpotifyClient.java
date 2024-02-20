@@ -14,6 +14,7 @@ import com.cannizarro.jukebox.dto.StateDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
@@ -27,8 +28,8 @@ public class SpotifyClient extends SpotifyClientConfig {
     @Value("${spotify.recently-played.limit}")
     private int recentlyPlayedLimit;
 
-    public SpotifyClient(UserRepository userRepository, SpotifyOAuthClient spotifyOAuthClient) {
-        super(userRepository, spotifyOAuthClient);
+    public SpotifyClient(UserRepository userRepository, SpotifyOAuthClient spotifyOAuthClient, ReactorClientHttpConnector clientHttpConnector) {
+        super(userRepository, spotifyOAuthClient, clientHttpConnector);
     }
 
     public Mono<SpotifyUserDTO> getUser(String token){

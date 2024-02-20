@@ -42,7 +42,7 @@ dynamoDb:
   secret: ${DYNAMO_DB_SECRET}
   transaction-page-size: 2
 
-scan-interval-minutes: 15
+scan-interval-minutes: 10
 
 management:
   endpoints:

@@ -2,12 +2,13 @@ package com.cannizarro.jukebox.config.webclient;
 
 import com.cannizarro.jukebox.config.dto.SpotifyTokenRequest;
 import com.cannizarro.jukebox.config.dto.SpotifyTokenResponse;
-import com.cannizarro.jukebox.config.webclient.config.WebClientCommonConfig;
+import com.cannizarro.jukebox.config.webclient.config.WebClientUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -29,15 +30,22 @@ public class SpotifyOAuthClient {
 
     private WebClient webClient;
 
+    private final ReactorClientHttpConnector clientHttpConnector;
+
+    public SpotifyOAuthClient(ReactorClientHttpConnector clientHttpConnector) {
+        this.clientHttpConnector = clientHttpConnector;
+    }
+
 
     @PostConstruct
     public void init(){
         webClient = WebClient.builder()
+                .clientConnector(clientHttpConnector)
                 .baseUrl(baseUri)
                 .filters(filters -> {
                     filters.add(ExchangeFilterFunctions.basicAuthentication(spotifyClientId, spotifyClientSecret));
-                    filters.add(WebClientCommonConfig.processRequest());
-                    filters.add(WebClientCommonConfig.processResponse());
+                    filters.add(WebClientUtils.processRequest());
+                    filters.add(WebClientUtils.processResponse());
                 })
                 .build();
     }

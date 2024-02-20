@@ -10,6 +10,6 @@ public class DatabaseUtils {
         return Instant.now().toString() + (long)Math.floor(Math.random()*512);
     }
     public static Instant getInstantFromUUID(final String uuid) {
-        return Instant.parse(uuid.substring(0,27));
+        return Instant.parse(uuid.substring(0,uuid.indexOf('Z')+1));
     }
 }
