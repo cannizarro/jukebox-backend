@@ -1,4 +1,5 @@
 A spring application which can be used as a refrence for:
+
 • Project structuring (parent and child project)
 • Spring security 6 with Spring Webflux
 • Non blocking DynamoDBEnhanced java client
