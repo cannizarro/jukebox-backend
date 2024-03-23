@@ -1,3 +1,5 @@
+**A spring application which can be used as a refrence for project structuring and spring security 6.**
+
 BUILD:
 docker buildx build --platform linux/amd64 -t jukebox:0.0.1 .
 
